@@ -21,6 +21,15 @@
     android:title="@string/firmware_version"
     settings:keywords="@string/keywords_android_version">
 
+    <!-- HorizonDroid version -->
+    <Preference
+        android:key="horizon_release_version"
+        android:title="@string/horizon_release_version"
+        android:summary="@string/summary_placeholder"
+        settings:enableCopying="true"
+        settings:searchable="false"
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.HorizonVersionDetailPreferenceController"/>
+
     <!-- Android version -->
     <Preference
         android:key="os_firmware_version"
