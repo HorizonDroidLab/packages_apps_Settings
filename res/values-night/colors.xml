@@ -79,5 +79,10 @@
 
     <!-- Pointer fill color setting outline color-->
     <color name="pointer_fill_outline_color">#FFFFFF</color>
+
+    <!-- Monet color pallete -->
+     <color name="primary_monet">@android:color/system_accent1_100</color>
+     <color name="sec_monet">@android:color/system_accent3_300</color>
+     <color name="opt_monet">@android:color/system_accent1_200</color>
 </resources>
 
