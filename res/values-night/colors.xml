@@ -74,5 +74,10 @@
 
     <!-- Switch bar disabled state color-->
     <color name="switch_bar_state_disabled_color">#1FE3E3E3</color>
+
+    <!-- Monet color pallete -->
+     <color name="primary_monet">@android:color/system_accent1_100</color>
+     <color name="sec_monet">@android:color/system_accent3_300</color>
+     <color name="opt_monet">@android:color/system_accent1_200</color>
 </resources>
 
