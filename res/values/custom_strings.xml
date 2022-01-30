@@ -272,4 +272,9 @@
     <!-- About Phone -->
     <string name="declan_storage_usage_summary">%1$s %2$s used</string>
     <string name="declan_storage_total_summary">%1$s %2$s</string>
+
+    <!-- Fingerprint Ripple Effect -->
+    <string name="enable_fingerprint_ripple_effect_title">Ripple effect</string>
+    <string name="enable_fingerprint_ripple_effect_summary">Show ripple effect on unlock with fingerprint</string>
+
 </resources>
