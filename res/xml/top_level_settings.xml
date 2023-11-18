@@ -20,6 +20,15 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings"
     android:title="Settings">
+
+    <Preference
+         android:key="top_level_horizonlab"
+         android:title="@string/horizon_dashboard_title"
+         android:icon="@drawable/ic_settings_horizon"
+         android:order="-140"
+         settings:layout="@layout/hzn_homepage_card_top"
+         android:fragment="com.horizon.lab.HorizonDashboard"
+         settings:controller="com.horizon.lab.TopLevelExtensionsEntryPreferenceController" />
 	
 	<com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.deviceinfo.aboutphone.MyDeviceInfoFragment"
