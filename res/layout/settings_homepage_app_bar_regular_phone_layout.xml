@@ -28,7 +28,7 @@
         android:layout_marginTop="@dimen/homepage_title_margin_top"
         android:layout_marginHorizontal="16dp">
         <LinearLayout
-            android:background="@drawable/hzn_card_background_sin"
+            android:background="@drawable/hzn_card_background_sin_big"
             android:padding="16dp"
             android:id="@+id/account"
             android:layout_width="0dp"
