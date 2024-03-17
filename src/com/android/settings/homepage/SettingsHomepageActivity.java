@@ -26,12 +26,15 @@ import android.animation.LayoutTransition;
 import android.app.ActivityManager;
 import android.app.settings.SettingsEnums;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.ApplicationInfoFlags;
 import android.content.pm.UserInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Process;
@@ -46,6 +49,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toolbar;
 import android.widget.TextView;
 
@@ -60,6 +64,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.window.embedding.SplitRule;
 
+import com.android.internal.util.UserIcons;
+
 import com.android.settings.R;
 import com.android.settings.Settings;
 import com.android.settings.SettingsActivity;
@@ -73,6 +79,7 @@ import com.android.settings.homepage.contextualcards.ContextualCardsFragment;
 import com.android.settings.overlay.FeatureFactory;
 import com.android.settings.safetycenter.SafetyCenterManagerWrapper;
 import com.android.settingslib.Utils;
+import com.android.settingslib.drawable.CircleFramedDrawable;
 import com.android.settingslib.core.lifecycle.HideNonSystemOverlayMixin;
 
 import com.google.android.setupcompat.util.WizardManagerHelper;
@@ -312,7 +319,43 @@ public class SettingsHomepageActivity extends FragmentActivity implements
     protected void onStart() {
         ((SettingsApplication) getApplication()).setHomeActivity(this);
         super.onStart();
+        initProfileView();
     }
+
+    private void initProfileView() {
+		LinearLayout userView = findViewById(R.id.account);
+		ImageView avatarView = findViewById(R.id.account_avatar);
+		if (avatarView != null) {
+			avatarView.setImageDrawable(getCircularUserIcon());
+		}
+		
+		TextView ownerView = findViewById(R.id.username);
+		final UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+		final UserInfo userInfo = com.android.settings.Utils.getExistingUser(userManager, android.os.Process.myUserHandle());
+		if (ownerView != null) {
+			ownerView.setText(userInfo.name);
+		}
+		
+		userView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$UserSettingsActivity"));
+				startActivity(intent);
+			}
+		});
+	}
+	
+	private Drawable getCircularUserIcon() {
+		final UserManager userManager = getSystemService(UserManager.class);
+		Bitmap bitmapUserIcon = userManager.getUserIcon(UserHandle.myUserId());
+		if (bitmapUserIcon == null) {
+			final Drawable defaultUserIcon = UserIcons.getDefaultUserIcon(getResources(), UserHandle.myUserId(), false);
+			bitmapUserIcon = UserIcons.convertToBitmap(defaultUserIcon);
+		}
+		Drawable drawableUserIcon = new CircleFramedDrawable(bitmapUserIcon, (int) getResources().getDimension(com.android.internal.R.dimen.user_icon_size));
+		return drawableUserIcon;
+	}
 
     @Override
     protected void onNewIntent(Intent intent) {

@@ -22,12 +22,15 @@ import static com.android.settingslib.search.SearchIndexable.MOBILE;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.settings.SettingsEnums;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -44,6 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.window.embedding.ActivityEmbeddingController;
 
 import com.android.settings.R;
+import android.app.settings.SettingsEnums;
 import com.android.settings.Utils;
 import com.android.settings.activityembedding.ActivityEmbeddingRulesController;
 import com.android.settings.activityembedding.ActivityEmbeddingUtils;
@@ -60,9 +64,10 @@ import com.android.settingslib.search.SearchIndexable;
 import com.android.settingslib.widget.LayoutPreference;
 import com.android.settings.widget.EntityHeaderController;
 
+import com.google.android.material.card.MaterialCardView;
+
 @SearchIndexable(forTarget = MOBILE)
-public class TopLevelSettings extends DashboardFragment implements SplitLayoutListener,
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+public class TopLevelSettings extends DashboardFragment implements SplitLayoutListener, View.OnClickListener, PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     private static final String TAG = "TopLevelSettings";
     private static final String SAVED_HIGHLIGHT_MIXIN = "highlight_mixin";
@@ -76,6 +81,10 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
     private boolean mScrollNeeded = true;
     private boolean mFirstStarted = true;
     private ActivityEmbeddingController mActivityEmbeddingController;
+
+    private LayoutPreference mDashboardHeader;
+	private LinearLayout mAboutCard, mDisplayCard;
+	private MaterialCardView mLabsCard;
 
     public TopLevelSettings() {
         final Bundle args = new Bundle();
@@ -163,6 +172,13 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        mDashboardHeader = findPreference("dashboard_header");
+		mAboutCard = mDashboardHeader.findViewById(R.id.dashboard_about);
+		mDisplayCard = mDashboardHeader.findViewById(R.id.dashboard_diaplay);
+		mLabsCard = mDashboardHeader.findViewById(R.id.dashboard_labs);
+		mAboutCard.setOnClickListener(this);
+		mDisplayCard.setOnClickListener(this);
+		mLabsCard.setOnClickListener(this);
         mIsEmbeddingActivityEnabled =
                 ActivityEmbeddingUtils.isEmbeddingActivityEnabled(getContext());
         if (!mIsEmbeddingActivityEnabled) {
@@ -244,12 +260,6 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
  	    String key = preference.getKey();
 
             if (mDashBoardStyle == 1) {
-            if (key.equals("top_level_about_device")){
-	        preference.setLayoutResource(R.layout.hzn_homepage_card_top);
-	    }
-            if (key.equals("top_level_horizonlab")){
-	        preference.setLayoutResource(R.layout.hzn_homepage_card_bot);
-	    }
             if (key.equals("top_level_network")){
                 preference.setLayoutResource(R.layout.hzn_homepage_card_top);
             }
@@ -265,11 +275,8 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
             if (key.equals("top_level_sound")){
                 preference.setLayoutResource(R.layout.hzn_homepage_card_bot);
             }
-            if (key.equals("top_level_display")){
-                preference.setLayoutResource(R.layout.hzn_homepage_card_top);
-            }
             if (key.equals("top_level_wallpaper")){
-                preference.setLayoutResource(R.layout.hzn_homepage_card_bot);
+                preference.setLayoutResource(R.layout.hzn_homepage_card_sin);
             }
             if (key.equals("top_level_battery")){
                 preference.setLayoutResource(R.layout.hzn_homepage_card_battery);
@@ -387,6 +394,26 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
             }
         });
     }
+
+    @Override
+	public void onClick(View view) {
+		if (view == mAboutCard) {
+			setClickActivity("MyDeviceInfoActivity");
+		} else if (view == mDisplayCard) {
+			setClickActivity("DisplaySettingsActivity");
+		} else if (view == mLabsCard) {
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.setComponent(new ComponentName("com.android.settings", "com.horizon.lab.HorizonDashboard"));
+			getContext().startActivity(intent);
+		}
+	}
+	
+	private void setClickActivity(String activity) {
+		Context context = getContext();
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$" + activity));
+		context.startActivity(intent);
+	}
 
     /** Returns a {@link TopLevelHighlightMixin} that performs highlighting */
     public TopLevelHighlightMixin getHighlightMixin() {
