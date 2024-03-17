@@ -403,7 +403,7 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
 			setClickActivity("DisplaySettingsActivity");
 		} else if (view == mLabsCard) {
 			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.setComponent(new ComponentName("com.android.settings", "com.horizon.lab.HorizonDashboard"));
+			intent.setComponent(new ComponentName("com.android.settings", "HorizonlabSettingsActivity"));
 			getContext().startActivity(intent);
 		}
 	}

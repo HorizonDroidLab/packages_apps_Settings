@@ -44,9 +44,18 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp">
+                android:layout_marginStart="15dp">
+
                 <TextView
+                    android:text="Welcome"
                     android:textSize="15dp"
+                    android:textColor="?android:textColorSecondary"
+                    android:alpha="0.7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
+                <TextView
+                    android:textSize="20dp"
                     android:textColor="?android:textColorPrimary"
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
@@ -54,7 +63,7 @@
                     android:singleLine="true" />
                 <TextView
                     android:text="Owner"
-                    android:textSize="13dp"
+                    android:textSize="15dp"
                     android:textColor="?android:textColorSecondary"
                     android:alpha="0.7"
                     android:layout_width="wrap_content"

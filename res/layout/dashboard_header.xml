@@ -50,10 +50,11 @@
                     android:textSize="13.0dip"
                     android:textColor="?android:attr/textColorSecondary"
                     android:id="@+id/dashboard_about_summary"
-                        android:ellipsize="marquee"
+                    android:ellipsize="marquee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10.0dip"
+                    android:text="@string/summary_aboutx"
                     android:alpha="0.7"
                     android:singleLine="true" />
             </LinearLayout>
