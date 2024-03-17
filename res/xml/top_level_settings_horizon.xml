@@ -21,41 +21,18 @@
     android:key="top_level_settings"
     android:title="Settings">
 	
-	<com.android.settings.widget.HomepagePreference
-        android:fragment="com.android.settings.deviceinfo.aboutphone.MyDeviceInfoFragment"
-        android:icon="@drawable/ic_settings_about_device"
-        android:key="top_level_about_device"
-        android:order="-170"
-        android:title="@string/about_settings"
-        settings:layout="@layout/hzn_homepage_card_top"
-        settings:highlightableMenuKey="@string/menu_key_about_device"
-        settings:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"/>
-    
-    <Preference
-        android:key="top_level_horizonlab"
-        android:title="@string/horizon_dashboard_title"
-        android:icon="@drawable/ic_settings_horizon"
-        android:order="-160"
-        settings:layout="@layout/hzn_homepage_card_bot"
-        android:fragment="com.horizon.lab.HorizonDashboard"
-        settings:controller="com.horizon.lab.TopLevelExtensionsEntryPreferenceController" />
-		
-	<com.android.settings.widget.HomepagePreference
-        android:fragment="com.android.settings.DisplaySettings"
-        android:icon="@drawable/ic_settings_display_white"
-        android:key="top_level_display"
+    <com.android.settingslib.widget.LayoutPreference
+        android:layout="@layout/dashboard_header"
+        android:key="dashboard_header"
         android:order="-150"
-        android:title="@string/display_settings"
-        settings:layout="@layout/hzn_homepage_card_top"
-        settings:highlightableMenuKey="@string/menu_key_display"
-        settings:controller="com.android.settings.display.TopLevelDisplayPreferenceController"/>
+        settings:controller="com.android.settings.homepage.DashboardHeaderController" />
 
     <com.android.settings.widget.RestrictedHomepagePreference
         android:icon="@drawable/ic_settings_wallpaper_white"
         android:key="top_level_wallpaper"
         android:order="-140"
         android:title="@string/wallpaper_settings_title"
-        settings:layout="@layout/hzn_homepage_card_bot"
+        settings:layout="@layout/hzn_homepage_card_sin"
         settings:highlightableMenuKey="@string/menu_key_wallpaper"
         settings:controller="com.android.settings.display.TopLevelWallpaperPreferenceController"/>
 
