@@ -19,6 +19,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings">
+    
+    <Preference
+        android:fragment="com.custom.settings.HorizonLabFragment"
+        android:icon="@drawable/ic_special_settings"
+        android:key="top_level_horizonlab"
+        android:order="9"
+        android:title="@string/custom_settings_title"
+        android:summary="@string/custom_settings_summary"
+        settings:controller="com.custom.settings.TopLevelSettingsPreferenceController"/>
 
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
