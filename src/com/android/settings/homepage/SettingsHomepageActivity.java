@@ -26,12 +26,15 @@ import android.animation.LayoutTransition;
 import android.app.ActivityManager;
 import android.app.settings.SettingsEnums;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.ApplicationInfoFlags;
 import android.content.pm.UserInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Process;
@@ -46,7 +49,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toolbar;
+import android.widget.TextView;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.graphics.Insets;
@@ -63,6 +68,8 @@ import androidx.window.embedding.SplitInfo;
 import androidx.window.embedding.SplitRule;
 import androidx.window.java.embedding.SplitControllerCallbackAdapter;
 
+import com.android.internal.util.UserIcons;
+
 import com.android.settings.R;
 import com.android.settings.Settings;
 import com.android.settings.SettingsActivity;
@@ -78,6 +85,7 @@ import com.android.settings.homepage.contextualcards.ContextualCardsFragment;
 import com.android.settings.overlay.FeatureFactory;
 import com.android.settings.safetycenter.SafetyCenterManagerWrapper;
 import com.android.settingslib.Utils;
+import com.android.settingslib.drawable.CircleFramedDrawable;
 import com.android.settingslib.core.lifecycle.HideNonSystemOverlayMixin;
 
 import com.google.android.setupcompat.util.WizardManagerHelper;
@@ -85,6 +93,8 @@ import com.google.android.setupcompat.util.WizardManagerHelper;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
+import java.util.*;
+import java.lang.*;
 
 /** Settings homepage activity */
 public class SettingsHomepageActivity extends FragmentActivity implements
@@ -283,6 +293,56 @@ public class SettingsHomepageActivity extends FragmentActivity implements
                         .getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
             }
         }
+        
+        final TextView textView = findViewById(R.id.homepage_title);
+
+        switch (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            case 5: case 6: case 7: case 8: case 9: case 10:
+       	// Generate random welcome massage as title header
+        	String[] morningMsg = getResources().getStringArray(R.array.dashboard_morning);
+        	Random genMorningMsg = new Random();
+        	int morning = genMorningMsg.nextInt(morningMsg.length-1);
+        	textView.setText(morningMsg[morning]);
+                break;
+
+            case 18: case 19: case 20: 
+        	String[] msgearlyNight = getResources().getStringArray(R.array.dashboard_early_night);
+        	Random genmsgeNight = new Random();
+        	int eNight = genmsgeNight.nextInt(msgearlyNight.length-1);
+        	textView.setText(msgearlyNight[eNight]);
+                break;
+
+            case 21: case 22: case 23: case 0: 
+        	String[] msgNight = getResources().getStringArray(R.array.dashboard_night);
+        	Random genmsgNight = new Random();
+        	int night = genmsgNight.nextInt(msgNight.length-1);
+        	textView.setText(msgNight[night]);
+                break;
+
+             case 16: case 17:
+        	String[] msgNoon = getResources().getStringArray(R.array.dashboard_noon);
+        	Random genmsgNoon = new Random();
+        	int noon = genmsgNoon.nextInt(msgNoon.length-1);
+        	textView.setText(msgNoon[noon]);
+                break;
+
+            case 1: case 2: case 3: case 4:
+        	String[] msgMN = getResources().getStringArray(R.array.dashboard_midnight);
+        	Random genmsgMN = new Random();
+        	int mn = genmsgMN.nextInt(msgMN.length-1);
+        	textView.setText(msgMN[mn]);
+                break;
+
+            case 11: case 12: case 13: case 14: case 15:
+        	String[] msgRD = getResources().getStringArray(R.array.dashboard_random);
+        	Random genmsgRD = new Random();
+        	int randomm = genmsgRD.nextInt(msgRD.length-1);
+        	textView.setText(msgRD[randomm]);
+                break;
+
+            default:
+                break;
+      }
         mMainFragment = showFragment(() -> {
             final TopLevelSettings fragment = new TopLevelSettings();
             fragment.getArguments().putString(SettingsActivity.EXTRA_FRAGMENT_ARG_KEY,
@@ -317,6 +377,7 @@ public class SettingsHomepageActivity extends FragmentActivity implements
     protected void onStart() {
         ((SettingsApplication) getApplication()).setHomeActivity(this);
         super.onStart();
+        initProfileView();
         if (mIsEmbeddingActivityEnabled) {
             final SplitController splitController = SplitController.getInstance(this);
             mSplitControllerAdapter = new SplitControllerCallbackAdapter(splitController);
@@ -335,6 +396,38 @@ public class SettingsHomepageActivity extends FragmentActivity implements
             mSplitControllerAdapter = null;
         }
     }
+
+    private void initProfileView() {
+		LinearLayout userView = findViewById(R.id.account);
+		ImageView avatarView = findViewById(R.id.account_avatar);
+		if (avatarView != null) {
+			avatarView.setImageDrawable(getCircularUserIcon());
+		}
+		TextView ownerView = findViewById(R.id.username);
+		final UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+		final UserInfo userInfo = com.android.settings.Utils.getExistingUser(userManager, android.os.Process.myUserHandle());
+		if (ownerView != null) {
+			ownerView.setText(userInfo.name);
+		}
+		userView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$UserSettingsActivity"));
+				startActivity(intent);
+			}
+		});
+	}
+	private Drawable getCircularUserIcon() {
+		final UserManager userManager = getSystemService(UserManager.class);
+		Bitmap bitmapUserIcon = userManager.getUserIcon(UserHandle.myUserId());
+		if (bitmapUserIcon == null) {
+			final Drawable defaultUserIcon = UserIcons.getDefaultUserIcon(getResources(), UserHandle.myUserId(), false);
+			bitmapUserIcon = UserIcons.convertToBitmap(defaultUserIcon);
+		}
+		Drawable drawableUserIcon = new CircleFramedDrawable(bitmapUserIcon, (int) getResources().getDimension(com.android.internal.R.dimen.user_icon_size));
+		return drawableUserIcon;
+	}
 
     @Override
     protected void onNewIntent(Intent intent) {

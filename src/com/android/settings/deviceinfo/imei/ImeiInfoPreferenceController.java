@@ -103,6 +103,7 @@ public class ImeiInfoPreferenceController extends BasePreferenceController {
             multiImeiPreference.setKey(DEFAULT_KEY + (1 + simSlotNumber));
             multiImeiPreference.setEnabled(true);
             multiImeiPreference.setCopyingEnabled(true);
+            multiImeiPreference.setLayoutResource(R.layout.hzn_pref_card_mid);
             category.addPreference(multiImeiPreference);
        }
     }

@@ -5,8 +5,43 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- About device screen, HorizonDroid Release Version -->
-    <string name="horizon_release_version">HorizonDroid Release Version</string>
+    <string name="horizon_release_version">Release Version</string>
+    <string name="about_team_title">About Horizon</string>
 
     <!-- HorizonDroid Maintainer -->
-    <string name="maintainer">HorizonDroid Maintainer</string>
+    <string name="maintainer">Astronaut</string>
+    <string name="build_maintainer_summary">Nama maintainer</string>
+
+    <!-- About Phone -->
+    <string name="declan_storage_usage_summary">%1$s %2$s used</string>
+    <string name="declan_storage_total_summary">%1$s %2$s</string>
+
+    <!-- Dashboard messages -->
+    <string name="summary_aboutx">Let You know about device</string>
+    <string name="dashboard_morning1">Selamat pagi jiwa jiwa yang tersakiti</string>
+    <string name="dashboard_morning2">Selamat menikmati hari hari yang tidak menyenangkan ini</string>
+    <string name="dashboard_morning3">A nice morning.. Loyal HorizonDroid user</string>
+    <string name="dashboard_morning4">Have a great day.. Loyal HorizonDroid user</string>
+    <string name="dashboard_morning5">A brand new day.. Loyal HorizonDroid user</string>
+    <string name="dashboard_noon1">Good Afternoon. Loyal HorizonDroid user</string>
+    <string name="dashboard_noon2">Enjoy the Sunset. while enjoying HorizonDroid</string>
+    <string name="dashboard_noon3">Welcome Home.. your house has a Horizon</string>
+    <string name="dashboard_noon4">Enjoy the day! Good to see you</string>
+    <string name="dashboard_noon5">Welcome back.. You are a True HorizonDroid</string>
+    <string name="dashboard_early_night1">Good Evening.. Loyal HorizonDroid user</string>
+    <string name="dashboard_early_night2">Time for dinner! Loyal HorizonDroid user</string>
+    <string name="dashboard_night3">Woi Tidur Sudah Malam Jangan Begadang OKE Jangan Bandel</string>
+    <string name="dashboard_night4">Masih Juga Scroll Tiktok ? Uda Tidur Sekarang</string>
+    <string name="dashboard_night5">Good Night! Loyal HorizonDroid user</string>
+    <string name="dashboard_midnight1">It\'s Late night already.. Loyal HorizonDroid user</string>
+    <string name="dashboard_midnight2">You need some help.. Loyal HorizonDroid user</string>
+    <string name="dashboard_midnight3">Get some sleep..Loyal HorizonDroid user </string>
+    <string name="dashboard_midnight4">Take some rest already.. Loyal HorizonDroid user</string>
+    <string name="dashboard_midnight5">Woi Tidur Sudah Malam Jangan Begadang OKE Jangan Bandel</string>
+    <string name="dashboard_random1">Miya Di Lepas Moonton Bercanda Tai Tai Tai !!!</string>
+    <string name="dashboard_random2">Berhenti Lah Berharap Pada Manusia</string>
+    <string name="dashboard_random3">Good to see you How are you doing?</string>
+    <string name="dashboard_random4">Catch you later! Have a good one</string>
+    <string name="dashboard_random5">Hi User! you are a Horizon lover</string>
+    <string name="dashboard_random6">What\'s up? Have a nice day</string>
 </resources>

@@ -5275,6 +5275,63 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Settings$AboutTeamActivity"
+                  android:label="@string/about_team_title"
+                  android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="com.horizon.lab.category.AboutTeamFragment" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="71">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                       android:value="com.horizon.lab.category.AboutTeamFragment" />
+            <meta-data android:name="com.android.settings.HIGHLIGHT_MENU_KEY"
+                       android:value="@string/menu_key_about_device"/>
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                       android:value="true" />
+        </activity>
+        
+        <activity android:name=".Settings$QuickSettingsActivity"
+                  android:label="@string/category_quicksettings_title"
+                  android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="com.horizon.lab.category.QuickSettings" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="71">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                       android:value="com.horizon.lab.category.QuickSettings" />
+            <meta-data android:name="com.android.settings.HIGHLIGHT_MENU_KEY"
+                       android:value="@string/menu_key_about_device"/>
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                       android:value="true" />
+        </activity>
+        
+        <activity android:name=".Settings$StatusbarActivity"
+                  android:label="@string/category_statusbar_title"
+                  android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="com.horizon.lab.category.Statusbar" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="71">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                       android:value="com.horizon.lab.category.Statusbar" />
+            <meta-data android:name="com.android.settings.HIGHLIGHT_MENU_KEY"
+                       android:value="@string/menu_key_about_device"/>
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                       android:value="true" />
+        </activity>
+
         <activity
             android:name=".spa.SpaActivity"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
@@ -5444,5 +5501,20 @@
         </receiver>
 
         <!-- This is the longest AndroidManifest.xml ever. -->
+
+        <!-- HorizonLab additions -->
+        <activity android:name=".Settings$HorizonlabSettingsActivity"
+                  android:label="@string/horizon_dashboard_title"
+                  android:icon="@drawable/ic_homepage_horizon"
+                  android:exported="true"
+                  android:parentActivityName="com.android.settings">
+            <intent-filter>
+                <action android:name="com.android.settings.action.SETTINGS"/>
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                       android:value="com.horizon.lab.HorizonDashboard"/>
+            <meta-data android:name="com.android.settings.summary"
+                       android:resource="@string/build_tweaks_summary_title"/>
+        </activity>
     </application>
 </manifest>
