@@ -21,6 +21,15 @@
     android:key="top_level_settings">
 
     <com.android.settings.widget.HomepagePreference
+        android:key="top_level_horizonlab"
+        android:title="@string/horizon_dashboard_title"
+        android:summary="@string/build_tweaks_summary_title"
+        android:icon="@drawable/ic_settings_horizon"
+        android:order="-160"
+        android:fragment="com.horizon.lab.HorizonDashboard"
+        settings:controller="com.horizon.lab.TopLevelExtensionsEntryPreferenceController" />
+
+    <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
         android:icon="@drawable/ic_settings_wireless"
         android:key="top_level_network"

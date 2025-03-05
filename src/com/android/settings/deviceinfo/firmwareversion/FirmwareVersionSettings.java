@@ -18,9 +18,15 @@ package com.android.settings.deviceinfo.firmwareversion;
 
 import android.app.settings.SettingsEnums;
 import android.content.Context;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.settings.R;
 import com.android.settings.dashboard.DashboardFragment;
@@ -39,6 +45,26 @@ public class FirmwareVersionSettings extends DashboardFragment {
     protected int getPreferenceScreenResId() {
         return R.xml.firmware_version;
     }
+    
+    @Override
+	public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
+		RecyclerView recyclerView = super.onCreateRecyclerView(inflater, container, icicle);
+		GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+		layoutManager.setSpanSizeLookup(new SpanSizeLookup());
+		recyclerView.setLayoutManager(layoutManager);
+		return recyclerView;
+	}
+	
+	class SpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+		@Override
+		public int getSpanSize(int position) {
+		    if (position == 1 || position == 2) {
+				return 1;
+			} else {
+				return 2;
+			}
+		}
+	}
 
     @Override
     protected String getLogTag() {

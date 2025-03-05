@@ -18,47 +18,84 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/firmware_version"
     settings:keywords="@string/keywords_android_version">
 
-    <!-- HorizonDroid logo -->
+    <!-- HorizonDroid header -->
     <com.android.settingslib.widget.LayoutPreference
         android:key="horizon_logo"
-        android:layout="@layout/horizon_logo"
-        android:selectable="false"/>
+        android:layout="@layout/hzn_pref_card_logo"
+        android:clickable="false"/>
 
-    <!-- HorizonDroid version -->
-    <Preference
-        android:key="horizon_release_version"
-        android:title="@string/horizon_release_version"
+    <declan.prjct.settings.aboutphone.StoragePreference
+        android:icon="@drawable/ic_storage_white"
+        android:title="@string/storage_settings"
+        android:key="storage_info"
+        android:summary="@string/summary_placeholder"
+        android:fragment="com.android.settings.deviceinfo.StorageDashboardFragment"
+        settings:controller="declan.prjct.settings.aboutphone.StoragePreferencesController"
+        settings:enableCopying="true"
+        settings:layout="@layout/hzn_preference_storage" />
+
+    <com.android.settings.widget.ValidatedEditTextPreference
+        android:icon="@drawable/ic_hzn_device"
+        android:key="device_name"
+        android:title="@string/my_device_info_device_name_preference_title"
         android:summary="@string/summary_placeholder"
         settings:enableCopying="true"
-        settings:searchable="false"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.HorizonVersionDetailPreferenceController"/>
+        app:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"
+        settings:layout="@layout/hzn_preference_maintainer"/>
 
-    <!-- HorizonDroid maintainer -->
     <Preference
+        android:icon="@drawable/ic_hzn_team"
         android:key="maintainer"
         android:title="@string/maintainer"
         android:summary="@string/summary_placeholder"
         settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.HorizonDroidMaintainerPreferenceController"/>
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.HorizonDroidMaintainerPreferenceController"
+        settings:layout="@layout/hzn_pref_card_sin_accent" />
 
+    <!-- HorizonDroid version -->
+    <PreferenceCategory
+        android:icon="@drawable/icon_preference_category"
+        android:title="Horizon version"
+        android:key="hzn_version_category"
+        settings:layout="@layout/hzn_preference_category">
+
+        <Preference
+            android:key="horizon_release_version"
+            android:title="@string/horizon_release_version"
+            android:summary="@string/summary_placeholder"
+            settings:enableCopying="true"
+            settings:searchable="false"
+            settings:controller="com.android.settings.deviceinfo.firmwareversion.HorizonVersionDetailPreferenceController"
+            settings:layout="@layout/hzn_pref_card_top"/>
+
+        <Preference
+            android:key="os_firmware_version"
+            android:title="@string/firmware_version"
+            android:summary="@string/summary_placeholder"
+            settings:enableCopying="true"
+            settings:searchable="false"
+            settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionDetailPreferenceController"
+            settings:layout="@layout/hzn_pref_card_bot"/>
+    </PreferenceCategory>
+    
     <!-- Android version -->
-    <Preference
-        android:key="os_firmware_version"
-        android:title="@string/firmware_version"
-        android:summary="@string/summary_placeholder"
-        settings:enableCopying="true"
-        settings:searchable="false"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionDetailPreferenceController"/>
+    <PreferenceCategory
+        android:icon="@drawable/icon_preference_category"
+        android:title="Android version"
+        android:key="android_version_category"
+        settings:layout="@layout/hzn_preference_category">
 
-    <!-- Security patch -->
-    <Preference
-        android:key="security_key"
-        android:title="@string/security_patch"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.SecurityPatchLevelPreferenceController"/>
+        <Preference
+            android:key="security_key"
+            android:title="@string/security_patch"
+            settings:enableCopying="true"
+            settings:controller="com.android.settings.deviceinfo.firmwareversion.SecurityPatchLevelPreferenceController"
+            settings:layout="@layout/hzn_pref_card_top"/>
+
 
     <!-- Mainline module version -->
     <!--
@@ -70,31 +107,33 @@
         settings:controller="com.android.settings.deviceinfo.firmwareversion.MainlineModuleVersionPreferenceController"/>
     -->
 
-    <!-- Baseband -->
-    <Preference
-        android:key="base_band"
-        android:title="@string/baseband_version"
-        android:summary="@string/summary_placeholder"
-        android:selectable="false"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.BasebandVersionPreferenceController"/>
+        <!-- Baseband -->
+        <Preference
+            android:key="base_band"
+            android:title="@string/baseband_version"
+            android:summary="@string/summary_placeholder"
+            settings:enableCopying="true"
+            settings:controller="com.android.settings.deviceinfo.firmwareversion.BasebandVersionPreferenceController"
+            settings:layout="@layout/hzn_pref_card_mid"/>
 
-    <!-- Kernel -->
-    <Preference
-        android:key="kernel_version"
-        android:title="@string/kernel_version"
-        android:summary="@string/summary_placeholder"
-        android:selectable="false"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.KernelVersionPreferenceController"/>
 
-    <!-- Build -->
-    <Preference
-        android:key="os_build_number"
-        android:title="@string/build_number"
-        android:summary="@string/summary_placeholder"
-        android:selectable="false"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.SimpleBuildNumberPreferenceController"/>
+        <!-- Kernel -->
+        <Preference
+            android:key="kernel_version"
+            android:title="@string/kernel_version"
+            android:summary="@string/summary_placeholder"
+            settings:enableCopying="true"
+            settings:controller="com.android.settings.deviceinfo.firmwareversion.KernelVersionPreferenceController"
+            settings:layout="@layout/hzn_pref_card_mid"/>
 
+        <!-- Build -->
+        <Preference
+             android:key="os_build_number"
+             android:title="@string/build_number"
+             android:summary="@string/summary_placeholder"
+             android:selectable="false"
+             settings:layout="@layout/hzn_pref_card_bot"
+             settings:enableCopying="true"
+             settings:controller="com.android.settings.deviceinfo.firmwareversion.SimpleBuildNumberPreferenceController"/>
+    </PreferenceCategory>
 </PreferenceScreen>
