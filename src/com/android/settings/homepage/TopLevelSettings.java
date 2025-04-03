@@ -307,6 +307,10 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
             }
             if (key.equals("top_level_wellbeing")){
                 preference.setLayoutResource(R.layout.hzn_homepage_card_mid);
+		    
+	    if (key.equals("dashboard_tile_pref_com.google.android.gms.backup.component.BackupOrRestoreSettingsActivity")){
+                preference.setLayoutResource(R.layout.hzn_homepage_card_mid);
+            }
             }
 	    }
     }
